@@ -1,7 +1,7 @@
 import 'package:memory_game/domain/usecase/mark_hit_card.dart';
 import 'package:memory_game/presentation/domain_access/interface_game_factory.dart';
+import 'package:memory_game/util/setup.dart';
 
-import '../constants.dart';
 import 'entity/board.dart';
 import 'entity/steps.dart';
 
