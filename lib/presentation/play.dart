@@ -22,7 +22,7 @@ class PlayGame {
         _secondCardSelect!.setActiveCard(false);
       }
 
-      _reset();
+      reset();
     }
   }
 
@@ -35,7 +35,7 @@ class PlayGame {
             ));
   }
 
-  static void _reset() {
+  static void reset() {
     _firstCardSelect = null;
     _secondCardSelect = null;
   }

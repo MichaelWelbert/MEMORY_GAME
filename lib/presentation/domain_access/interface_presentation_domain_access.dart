@@ -1,4 +1,4 @@
-abstract class IGameFactory {
+abstract class IPresentationDomainAccess {
   int boardGetLenght();
   int cardIconId({required int id});
   bool cardIsMarked({required int id});

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:memory_game/presentation/play.dart';
 import 'package:memory_game/util/kIcons.dart';
 import 'package:memory_game/presentation/domain_access/access_domain.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -17,8 +18,19 @@ class Game extends StatelessWidget {
     SizeConfigure.setUpConfigure(MediaQuery.of(context));
     return Scaffold(
       body: SingleChildScrollView(
-        child: Observer(
-          builder: (_) => AccessDomain.isEndGame() ? EndGame() : InitiateGame(),
+        child: Container(
+          width: SizeConfigure.screenWidth,
+          height: SizeConfigure.basedScreenHeight,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("background.png"),
+              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.darken),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Observer(
+            builder: (_) => AccessDomain.isEndGame() ? EndGame() : InitiateGame(),
+          ),
         ),
       ),
     );
@@ -40,15 +52,15 @@ class EndGame extends StatelessWidget {
         children: [
           Container(
             width: 1200 * SizeConfigure.screenFactorSizeMultiplier,
-            height: 200 * SizeConfigure.screenFactorSizeMultiplier,
+            height: 300 * SizeConfigure.screenFactorSizeMultiplier,
             child: Observer(
               builder: (_) => RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: "Parabéns!!! Você conseguiu concluir o jogo em ${AccessDomain.numberOfSteps()} passos. Deseja tentar se superar?",
+                  text: "Parabéns!!! \n Você conseguiu concluir o jogo em ${AccessDomain.numberOfSteps()} tentativas.\n Deseja tentar se superar?",
                   style: KTextStyle.body(
-                    fontSize: 65 * SizeConfigure.screenFactorSizeMultiplier,
-                    color: KColors.grayColor,
+                    fontSize: 55 * SizeConfigure.screenFactorSizeMultiplier,
+                    color: KColors.whiteColor,
                     fontfamily: GoogleFonts.chewy().fontFamily,
                   ),
                 ),
@@ -63,6 +75,7 @@ class EndGame extends StatelessWidget {
             height: 90 * SizeConfigure.screenFactorSizeMultiplier,
             child: ElevatedButton(
               onPressed: () {
+                PlayGame.reset();
                 AccessDomain.reset();
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -73,8 +86,8 @@ class EndGame extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                   (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.hovered)) return KColors.grayColor.withOpacity(0.95);
-                    return KColors.grayColor;
+                    if (states.contains(MaterialState.hovered)) return KColors.blueColor.withOpacity(0.95);
+                    return KColors.blueColor;
                   },
                 ),
               ),
@@ -121,20 +134,21 @@ class InitiateGame extends StatelessWidget {
                 Observer(
                   builder: (_) => RichText(
                     text: TextSpan(
-                      text: "Numero de passos:    ${AccessDomain.numberOfSteps()}",
+                      text: "Tentativas:    ${AccessDomain.numberOfSteps()}",
                       style: KTextStyle.body(
                         fontSize: 35 * SizeConfigure.screenFactorSizeMultiplier,
-                        color: KColors.grayColor,
+                        color: KColors.whiteColor,
                         fontfamily: GoogleFonts.chewy().fontFamily,
                       ),
                     ),
                   ),
                 ),
                 Container(
-                  width: 100 * SizeConfigure.screenFactorSizeMultiplier,
-                  height: 40 * SizeConfigure.screenFactorSizeMultiplier,
+                  width: 120 * SizeConfigure.screenFactorSizeMultiplier,
+                  height: 60 * SizeConfigure.screenFactorSizeMultiplier,
                   child: ElevatedButton(
                     onPressed: () {
+                      PlayGame.reset();
                       AccessDomain.reset();
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -145,8 +159,8 @@ class InitiateGame extends StatelessWidget {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.hovered)) return KColors.grayColor.withOpacity(0.95);
-                          return KColors.grayColor;
+                          if (states.contains(MaterialState.hovered)) return KColors.blueColor.withOpacity(0.95);
+                          return KColors.blueColor;
                         },
                       ),
                     ),

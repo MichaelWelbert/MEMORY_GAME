@@ -1,8 +1,8 @@
-import 'package:memory_game/domain/game_factory.dart';
-import 'package:memory_game/presentation/domain_access/interface_game_factory.dart';
+import 'package:memory_game/domain/presentetaion_domain_access.dart';
+import 'package:memory_game/presentation/domain_access/interface_presentation_domain_access.dart';
 
 class AccessDomain {
-  static IGameFactory _game = GameFactory();
+  static IPresentationDomainAccess _game = PresentationDomainAccess();
 
   static int boardLenght() => _game.boardGetLenght();
   static int cardIconId({required id}) => _game.cardIconId(id: id);
