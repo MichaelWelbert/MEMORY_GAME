@@ -24,7 +24,7 @@ class Game extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("background.png"),
-              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.darken),
+              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.9), BlendMode.darken),
               fit: BoxFit.cover,
             ),
           ),

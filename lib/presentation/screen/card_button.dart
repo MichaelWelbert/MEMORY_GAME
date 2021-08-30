@@ -35,7 +35,15 @@ class _CardButtonState extends State<CardButton> {
             builder: (_) => Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                image: cardController.active ? DecorationImage(image: AssetImage(widget.iconPath), fit: BoxFit.cover) : null,
+                image: cardController.active
+                    ? DecorationImage(
+                        image: AssetImage(widget.iconPath),
+                        fit: BoxFit.cover,
+                      )
+                    : DecorationImage(
+                        image: AssetImage('who.png'),
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
           ),
