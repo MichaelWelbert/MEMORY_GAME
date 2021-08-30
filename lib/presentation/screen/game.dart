@@ -115,94 +115,95 @@ class InitiateGame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: SizeConfigure.screenWidth,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 20 * SizeConfigure.screenFactorSizeMultiplier,
-          ),
-          Container(
-            alignment: Alignment.center,
-            width: 1200 * SizeConfigure.screenFactorSizeMultiplier,
-            height: 50 * SizeConfigure.screenFactorSizeMultiplier,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Observer(
-                  builder: (_) => RichText(
-                    text: TextSpan(
-                      text: "Tentativas:    ${AccessDomain.numberOfSteps()}",
-                      style: KTextStyle.body(
-                        fontSize: 35 * SizeConfigure.screenFactorSizeMultiplier,
-                        color: KColors.whiteColor,
-                        fontfamily: GoogleFonts.chewy().fontFamily,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 120 * SizeConfigure.screenFactorSizeMultiplier,
-                  height: 60 * SizeConfigure.screenFactorSizeMultiplier,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      PlayGame.reset();
-                      AccessDomain.reset();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => Game(),
-                        ),
-                      );
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.hovered)) return KColors.blueColor.withOpacity(0.95);
-                          return KColors.blueColor;
-                        },
-                      ),
-                    ),
-                    child: FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: RichText(
-                        text: TextSpan(
-                          text: "Reiniciar",
-                          style: KTextStyle.title(fontSize: 18 * SizeConfigure.screenFactorSizeMultiplier, color: KColors.whiteColor),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
+    return SingleChildScrollView(
+      child: Container(
+        width: SizeConfigure.screenWidth,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 20 * SizeConfigure.screenFactorSizeMultiplier,
             ),
-          ),
-          SizedBox(
-            height: 10 * SizeConfigure.screenFactorSizeMultiplier,
-          ),
-          Container(
-            width: 1300 * SizeConfigure.screenFactorSizeMultiplier,
-            height: 650 * SizeConfigure.screenFactorSizeMultiplier,
-            child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: Responsive.isDesktop(context) ? 8 : 4,
-                  childAspectRatio: 1,
-                ),
-                shrinkWrap: true,
-                itemCount: AccessDomain.boardLenght(),
-                itemBuilder: (BuildContext ctx, index) {
-                  return Observer(
-                    builder: (_) => AccessDomain.cardIsMarked(id: index)
-                        ? Container()
-                        : CardButton(
-                            id: AccessDomain.cardId(indexPosition: index),
-                            iconPath: KIcons.generationIconLink(AccessDomain.cardIconId(id: index)),
+            Container(
+              alignment: Alignment.center,
+              width: 1200 * SizeConfigure.screenFactorSizeMultiplier,
+              height: 50 * SizeConfigure.screenFactorSizeMultiplier,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Observer(
+                    builder: (_) => RichText(
+                      text: TextSpan(
+                        text: "Tentativas:    ${AccessDomain.numberOfSteps()}",
+                        style: KTextStyle.body(
+                          fontSize: 35 * SizeConfigure.screenFactorSizeMultiplier,
+                          color: KColors.whiteColor,
+                          fontfamily: GoogleFonts.chewy().fontFamily,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 120 * SizeConfigure.screenFactorSizeMultiplier,
+                    height: 60 * SizeConfigure.screenFactorSizeMultiplier,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        PlayGame.reset();
+                        AccessDomain.reset();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => Game(),
                           ),
-                  );
-                }),
-          ),
-        ],
+                        );
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                          (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.hovered)) return KColors.blueColor.withOpacity(0.95);
+                            return KColors.blueColor;
+                          },
+                        ),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: RichText(
+                          text: TextSpan(
+                            text: "Reiniciar",
+                            style: KTextStyle.title(fontSize: 18 * SizeConfigure.screenFactorSizeMultiplier, color: KColors.whiteColor),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10 * SizeConfigure.screenFactorSizeMultiplier,
+            ),
+            Container(
+              width: 1300 * SizeConfigure.screenFactorSizeMultiplier,
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: Responsive.isDesktop(context) ? 8 : 4,
+                    childAspectRatio: 1,
+                  ),
+                  shrinkWrap: true,
+                  itemCount: AccessDomain.boardLenght(),
+                  itemBuilder: (BuildContext ctx, index) {
+                    return Observer(
+                      builder: (_) => AccessDomain.cardIsMarked(id: index)
+                          ? Container()
+                          : CardButton(
+                              id: AccessDomain.cardId(indexPosition: index),
+                              iconPath: KIcons.generationIconLink(AccessDomain.cardIconId(id: index)),
+                            ),
+                    );
+                  }),
+            ),
+          ],
+        ),
       ),
     );
   }
